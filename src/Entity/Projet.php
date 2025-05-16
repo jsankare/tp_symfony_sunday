@@ -23,9 +23,9 @@ class Projet
     private ?string $description = null;
 
     /**
-     * @var Collection<int, livrable>
+     * @var Collection<int, Livrable>
      */
-    #[ORM\OneToMany(targetEntity: livrable::class, mappedBy: 'projet', orphanRemoval: true)]
+    #[ORM\OneToMany(targetEntity: Livrable::class, mappedBy: 'projet', orphanRemoval: true)]
     private Collection $livrable;
 
     #[ORM\ManyToOne(inversedBy: 'projects')]
@@ -67,14 +67,14 @@ class Projet
     }
 
     /**
-     * @return Collection<int, livrable>
+     * @return Collection<int, Livrable>
      */
     public function getLivrable(): Collection
     {
         return $this->livrable;
     }
 
-    public function addLivrable(livrable $livrable): static
+    public function addLivrable(Livrable $livrable): static
     {
         if (!$this->livrable->contains($livrable)) {
             $this->livrable->add($livrable);
@@ -84,7 +84,7 @@ class Projet
         return $this;
     }
 
-    public function removeLivrable(livrable $livrable): static
+    public function removeLivrable(Livrable $livrable): static
     {
         if ($this->livrable->removeElement($livrable)) {
             // set the owning side to null (unless already changed)

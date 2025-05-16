@@ -16,53 +16,25 @@ class Testimony
     #[ORM\Column]
     private ?int $id = null;
 
-    /**
-     * @var Collection<int, Client>
-     */
-    #[ORM\OneToMany(targetEntity: Client::class, mappedBy: 'testimony')]
-    private Collection $author;
+    #[ORM\ManyToOne(targetEntity: Client::class, inversedBy: 'testimonies')]
+    private Client $author;
 
     #[ORM\Column(type: Types::TEXT)]
     private ?string $content = null;
-
-    public function __construct()
-    {
-        $this->author = new ArrayCollection();
-    }
 
     public function getId(): ?int
     {
         return $this->id;
     }
 
-    /**
-     * @return Collection<int, Client>
-     */
-    public function getAuthor(): Collection
+    public function getAuthor(): Client
     {
         return $this->author;
     }
 
-    public function addAuthor(Client $author): static
+    public function setAuthor(Client $author): void
     {
-        if (!$this->author->contains($author)) {
-            $this->author->add($author);
-            $author->setTestimony($this);
-        }
-
-        return $this;
-    }
-
-    public function removeAuthor(Client $author): static
-    {
-        if ($this->author->removeElement($author)) {
-            // set the owning side to null (unless already changed)
-            if ($author->getTestimony() === $this) {
-                $author->setTestimony(null);
-            }
-        }
-
-        return $this;
+        $this->author = $author;
     }
 
     public function getContent(): ?string

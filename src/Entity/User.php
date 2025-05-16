@@ -10,6 +10,7 @@ use Symfony\Component\Security\Core\User\UserInterface;
 #[ORM\Entity(repositoryClass: UserRepository::class)]
 #[ORM\Table(name: '`user`')]
 #[ORM\UniqueConstraint(name: 'UNIQ_IDENTIFIER_EMAIL', fields: ['email'])]
+#[ORM\HasLifecycleCallbacks]
 class User implements UserInterface, PasswordAuthenticatedUserInterface
 {
     #[ORM\Id]
@@ -26,10 +27,10 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(length: 50)]
     private ?string $lastName = null;
 
-    #[ORM\Column(length: 255)]
+    #[ORM\Column(length: 255, nullable: true)]
     private ?string $token = null;
 
-    #[ORM\Column(length: 180)]
+    #[ORM\Column(length: 180,  nullable: true)]
     private ?\DateTime $resetExpirationDate = null;
 
     #[ORM\Column(length: 180)]
@@ -112,9 +113,10 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this->createdAt;
     }
 
-    public function setCreatedAt(?\DateTimeImmutable $createdAt): void
+    #[ORM\PrePersist]
+    public function setCreatedAt(): void
     {
-        $this->createdAt = $createdAt;
+        $this->createdAt = new \DateTimeImmutable();
     }
 
     public function getUpdatedAt(): ?\DateTime
@@ -122,9 +124,10 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this->updatedAt;
     }
 
-    public function setUpdatedAt(?\DateTime $updatedAt): void
+    #[ORM\PrePersist]
+    public function setUpdatedAt(): void
     {
-        $this->updatedAt = $updatedAt;
+        $this->updatedAt = new \DateTime();
     }
 
 

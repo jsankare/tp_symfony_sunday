@@ -27,12 +27,17 @@ class Client
     #[ORM\OneToMany(targetEntity: Projet::class, mappedBy: 'client', orphanRemoval: true)]
     private Collection $projects;
 
-    #[ORM\ManyToOne(inversedBy: 'author')]
-    private ?Testimony $testimony = null;
+    /**
+     * @var Collection<int, Testimony>
+     */
+    #[ORM\OneToMany(targetEntity: Testimony::class, mappedBy: 'author')]
+    private Collection $testimonies;
+
 
     public function __construct()
     {
         $this->projects = new ArrayCollection();
+        $this->testimonies = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -94,15 +99,27 @@ class Client
         return $this;
     }
 
-    public function getTestimony(): ?Testimony
+    /**
+     * @return Collection<int, Testimony>
+     */
+    public function getTestimonies(): Collection
     {
-        return $this->testimony;
+        return $this->testimonies;
     }
 
-    public function setTestimony(?Testimony $testimony): static
+    public function addTestimony(Testimony $testimony): static
     {
-        $this->testimony = $testimony;
+        if (!$this->testimonies->contains($testimony)) {
+            $this->testimonies->add($testimony);
+            $testimony->setAuthor($this);
+        }
 
+        return $this;
+    }
+
+    public function removeTestimony(Testimony $testimony): static
+    {
+        $this->testimonies->removeElement($testimony);
         return $this;
     }
 }
