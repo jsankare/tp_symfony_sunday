@@ -15,29 +15,4 @@ class LivrableRepository extends ServiceEntityRepository
     {
         parent::__construct($registry, Livrable::class);
     }
-
-//    /**
-//     * @return Livrable[] Returns an array of Livrable objects
-//     */
-//    public function findByExampleField($value): array
-//    {
-//        return $this->createQueryBuilder('l')
-//            ->andWhere('l.exampleField = :val')
-//            ->setParameter('val', $value)
-//            ->orderBy('l.id', 'ASC')
-//            ->setMaxResults(10)
-//            ->getQuery()
-//            ->getResult()
-//        ;
-//    }
-
-//    public function findOneBySomeField($value): ?Livrable
-//    {
-//        return $this->createQueryBuilder('l')
-//            ->andWhere('l.exampleField = :val')
-//            ->setParameter('val', $value)
-//            ->getQuery()
-//            ->getOneOrNullResult()
-//        ;
-//    }
 }

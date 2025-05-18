@@ -6,7 +6,7 @@
     {{ parent() }}
     <style>
         .hero {
-            min-height: calc(100vh - 80px);
+            min-height: 60vh;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -69,7 +69,7 @@
         }
 
         .content-container {
-            max-width: 800px;
+            max-width: 1200px;
             margin: 0 auto;
         }
 
@@ -80,29 +80,61 @@
             text-align: center;
         }
 
-        .feature-list {
-            list-style: none;
-            padding: 0;
-            margin: 0;
-        }
-
-        .feature-item {
-            margin-bottom: 2rem;
-            padding: 1.5rem;
+        .readme-content {
             background: #f8f9fa;
+            padding: 2rem;
             border-radius: 10px;
             box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
         }
 
-        .feature-title {
+        .readme-content h1 {
+            color: #333;
+            font-size: 2.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .readme-content h2 {
             color: #0066ff;
-            font-size: 1.5rem;
+            font-size: 1.8rem;
+            margin: 2rem 0 1rem;
+        }
+
+        .readme-content h3 {
+            color: #333;
+            font-size: 1.4rem;
+            margin: 1.5rem 0 1rem;
+        }
+
+        .readme-content p {
+            color: #666;
+            line-height: 1.6;
             margin-bottom: 1rem;
         }
 
-        .feature-description {
+        .readme-content ul {
             color: #666;
             line-height: 1.6;
+            margin-bottom: 1rem;
+            padding-left: 2rem;
+        }
+
+        .readme-content li {
+            margin-bottom: 0.5rem;
+        }
+
+        .readme-content code {
+            background: #e9ecef;
+            padding: 0.2rem 0.4rem;
+            border-radius: 4px;
+            font-family: monospace;
+        }
+
+        .readme-content pre {
+            background: #e9ecef;
+            padding: 1rem;
+            border-radius: 8px;
+            overflow-x: auto;
+            margin: 1rem 0;
         }
     </style>
 {% endblock %}
@@ -126,25 +158,9 @@
 
     <div class="content-section">
         <div class="content-container">
-            <h2 class="section-title">Fonctionnalités</h2>
-            <ul class="feature-list">
-                <li class="feature-item">
-                    <h3 class="feature-title">Gestion des témoignages</h3>
-                    <p class="feature-description">Créez, modifiez et gérez les témoignages de vos clients. Organisez-les par catégorie et suivez leur statut.</p>
-                </li>
-                <li class="feature-item">
-                    <h3 class="feature-title">Gestion des clients</h3>
-                    <p class="feature-description">Maintenez une base de données complète de vos clients avec leurs informations de contact et leur historique.</p>
-                </li>
-                <li class="feature-item">
-                    <h3 class="feature-title">Interface d'administration</h3>
-                    <p class="feature-description">Un panneau d'administration intuitif pour gérer tous les aspects de votre plateforme.</p>
-                </li>
-                <li class="feature-item">
-                    <h3 class="feature-title">Sécurité avancée</h3>
-                    <p class="feature-description">Système d'authentification robuste avec gestion des rôles et des permissions.</p>
-                </li>
-            </ul>
+            <div class="readme-content">
+                {{ readme_content|raw }}
+            </div>
         </div>
     </div>
 {% endblock %}

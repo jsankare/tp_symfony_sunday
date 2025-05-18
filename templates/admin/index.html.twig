@@ -1,0 +1,118 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Administration{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <style>
+        .admin-container {
+            max-width: 1200px;
+            margin: 2rem auto;
+            padding: 2rem;
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 15px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+            backdrop-filter: blur(10px);
+        }
+
+        .admin-header {
+            margin-bottom: 2rem;
+        }
+
+        .admin-title {
+            color: #333;
+            font-size: 2rem;
+            margin: 0;
+        }
+
+        .admin-subtitle {
+            color: #666;
+            margin-top: 0.5rem;
+        }
+
+        .admin-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .admin-card {
+            background: white;
+            border-radius: 10px;
+            padding: 1.5rem;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
+        }
+
+        .admin-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .card-title {
+            color: #333;
+            font-size: 1.5rem;
+            margin: 0 0 1rem 0;
+        }
+
+        .card-stats {
+            font-size: 2rem;
+            font-weight: bold;
+            color: #4facfe;
+            margin-bottom: 1rem;
+        }
+
+        .card-description {
+            color: #666;
+            margin-bottom: 1.5rem;
+        }
+
+        .card-link {
+            display: inline-block;
+            padding: 0.75rem 1.5rem;
+            background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            transition: all 0.3s ease;
+        }
+
+        .card-link:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 242, 254, 0.2);
+            color: white;
+        }
+    </style>
+{% endblock %}
+
+{% block body %}
+    <div class="admin-container">
+        <div class="admin-header">
+            <h1 class="admin-title">Tableau de bord administrateur</h1>
+            <p class="admin-subtitle">Bienvenue, {{ user.email }}</p>
+        </div>
+
+        <div class="admin-grid">
+            <div class="admin-card">
+                <h2 class="card-title">Utilisateurs</h2>
+                <div class="card-stats">{{ userCount }}</div>
+                <p class="card-description">Gérez les utilisateurs, leurs rôles et leurs permissions.</p>
+                <a href="{{ path('app_admin_users') }}" class="card-link">Gérer les utilisateurs</a>
+            </div>
+
+            <div class="admin-card">
+                <h2 class="card-title">Témoignages</h2>
+                <div class="card-stats">{{ testimonyCount }}</div>
+                <p class="card-description">Modérez et gérez les témoignages des clients.</p>
+                <a href="{{ path('app_admin_testimonials') }}" class="card-link">Gérer les témoignages</a>
+            </div>
+
+            <div class="admin-card">
+                <h2 class="card-title">Clients</h2>
+                <div class="card-stats">{{ clientCount }}</div>
+                <p class="card-description">Gérez la base de données des clients.</p>
+                <a href="{{ path('app_admin_clients') }}" class="card-link">Gérer les clients</a>
+            </div>
+        </div>
+    </div>
+{% endblock %}

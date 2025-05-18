@@ -87,7 +87,6 @@ class Projet
     public function removeLivrable(Livrable $livrable): static
     {
         if ($this->livrable->removeElement($livrable)) {
-            // set the owning side to null (unless already changed)
             if ($livrable->getProjet() === $this) {
                 $livrable->setProjet(null);
             }

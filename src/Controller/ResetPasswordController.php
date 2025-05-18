@@ -27,17 +27,16 @@ class ResetPasswordController extends AbstractController
             $user = $entityManager->getRepository(User::class)->findOneBy(['email' => $email]);
 
             if ($user) {
-                // Générer un token unique
+                // token unique
                 $token = bin2hex(random_bytes(32));
                 $user->setToken($token);
                 $user->setResetExpirationDate(new \DateTime('+1 hour'));
                 $entityManager->flush();
 
-                // Envoyer l'email
+                // envoi de l'email
                 $emailService->sendResetPasswordEmail($user->getEmail(), $token);
             }
 
-            // On renvoie toujours un message de succès pour des raisons de sécurité
             return $this->render('reset_password/check_email.html.twig');
         }
 
@@ -59,7 +58,6 @@ class ResetPasswordController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            // Encode le nouveau mot de passe
             $user->setPassword(
                 $passwordHasher->hashPassword(
                     $user,
@@ -67,7 +65,6 @@ class ResetPasswordController extends AbstractController
                 )
             );
 
-            // Réinitialise le token et la date d'expiration
             $user->setToken(null);
             $user->setResetExpirationDate(null);
             $entityManager->flush();

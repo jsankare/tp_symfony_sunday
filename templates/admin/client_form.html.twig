@@ -1,0 +1,134 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ client.id ? 'Modifier' : 'Nouveau' }} Client{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <style>
+        .admin-container {
+            max-width: 800px;
+            margin: 2rem auto;
+            padding: 2rem;
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 15px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+            backdrop-filter: blur(10px);
+        }
+
+        .admin-header {
+            margin-bottom: 2rem;
+        }
+
+        .admin-title {
+            color: #333;
+            font-size: 2rem;
+            margin: 0;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: #333;
+            font-weight: 500;
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 0.75rem;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 1rem;
+            transition: border-color 0.3s ease;
+        }
+
+        .form-control:focus {
+            outline: none;
+            border-color: #4facfe;
+            box-shadow: 0 0 0 3px rgba(79, 172, 254, 0.1);
+        }
+
+        .btn-submit {
+            background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+            color: white;
+            padding: 0.75rem 1.5rem;
+            border: none;
+            border-radius: 5px;
+            font-size: 1rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .btn-submit:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 242, 254, 0.2);
+        }
+
+        .btn-cancel {
+            background: #f8f9fa;
+            color: #666;
+            padding: 0.75rem 1.5rem;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 1rem;
+            font-weight: 500;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            margin-left: 1rem;
+        }
+
+        .btn-cancel:hover {
+            background: #e9ecef;
+            color: #333;
+        }
+
+        .form-actions {
+            display: flex;
+            gap: 1rem;
+            margin-top: 2rem;
+        }
+
+        .alert {
+            padding: 1rem;
+            border-radius: 5px;
+            margin-bottom: 1rem;
+        }
+
+        .alert-danger {
+            background: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
+    </style>
+{% endblock %}
+
+{% block body %}
+    <div class="admin-container">
+        <div class="admin-header">
+            <h1 class="admin-title">{{ client.id ? 'Modifier' : 'Nouveau' }} Client</h1>
+        </div>
+
+        {{ form_start(form, {'attr': {'class': 'client-form'}}) }}
+            <div class="form-group">
+                {{ form_label(form.name, 'Nom', {'label_attr': {'class': 'form-label'}}) }}
+                {{ form_widget(form.name, {'attr': {'class': 'form-control'}}) }}
+                {{ form_errors(form.name) }}
+            </div>
+
+            <div class="form-group">
+                {{ form_label(form.email, 'Email', {'label_attr': {'class': 'form-label'}}) }}
+                {{ form_widget(form.email, {'attr': {'class': 'form-control'}}) }}
+                {{ form_errors(form.email) }}
+            </div>
+
+            <div class="form-actions">
+                <button type="submit" class="btn-submit">{{ client.id ? 'Modifier' : 'Créer' }}</button>
+                <a href="{{ path('app_admin_clients') }}" class="btn-cancel">Annuler</a>
+            </div>
+        {{ form_end(form) }}
+    </div>
+{% endblock %}
