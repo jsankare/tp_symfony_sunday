@@ -66,9 +66,13 @@
             <h2>Bienvenue {{ user.firstName }} {{ user.lastName }}</h2>
             <p>Email: {{ user.email }}</p>
             <p>Rôles:</p>
-            {% for role in user.roles %}
-                <span class="role-badge">{{ role }}</span>
-            {% endfor %}
+            {% if 'ROLE_BANNED' in user.roles %}
+                <span class="role-badge">Banni</span>
+            {% elseif 'ROLE_ADMIN' in user.roles %}
+                <span class="role-badge">Administrateur</span>
+            {% else %}
+                <span class="role-badge">Utilisateur</span>
+            {% endif %}
         </div>
 
         <a href="{{ path('app_logout') }}" class="logout-btn">Se déconnecter</a>

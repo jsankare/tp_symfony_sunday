@@ -92,6 +92,17 @@
         a:hover {
             text-decoration: underline;
         }
+
+        .links-container {
+            margin-top: 20px;
+            text-align: center;
+        }
+
+        .links-container a {
+            display: inline-block;
+            margin: 0 10px;
+            font-size: 12px;
+        }
     </style>
 {% endblock %}
 
@@ -124,6 +135,9 @@
         Sign in
     </button>
 
-    <a href="{{ path('app_register') }}">Pas encore de compte ? Inscrivez-vous</a>
+    <div class="links-container">
+        <a href="{{ path('app_register') }}">Pas encore de compte ? Inscrivez-vous</a>
+        <a href="{{ path('app_forgot_password_request') }}">Mot de passe oublié ?</a>
+    </div>
 </form>
 {% endblock %}

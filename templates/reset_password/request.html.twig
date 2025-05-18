@@ -1,0 +1,99 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Réinitialisation du mot de passe{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@500&display=swap');
+
+        body {
+            background: linear-gradient(to bottom, #1c1c1c, #2b2b2b);
+            font-family: 'Orbitron', sans-serif;
+            color: #fff;
+            min-height: 100vh;
+        }
+
+        form {
+            max-width: 480px;
+            margin: 60px auto;
+            padding: 40px;
+            background: #1f1f1f;
+            border: 3px solid #3f3f3f;
+            box-shadow: 0 0 15px #000;
+            border-radius: 8px;
+        }
+
+        h1 {
+            text-align: center;
+            font-size: 22px;
+            margin-bottom: 30px;
+            color: #ff4081;
+            text-shadow: 0 0 5px #ff4081;
+        }
+
+        .form-label {
+            display: block;
+            margin-top: 15px;
+            margin-bottom: 5px;
+            font-size: 12px;
+            color: #bbb;
+        }
+
+        .form-control {
+            background-color: #2b2b2b;
+            color: #00ffff;
+            border: 2px solid #00ffff;
+            border-radius: 4px;
+            padding: 10px;
+            font-size: 14px;
+            width: 100%;
+        }
+
+        .btn-primary {
+            background-color: #00ffff;
+            color: #000;
+            border: none;
+            padding: 12px;
+            width: 100%;
+            margin-top: 20px;
+            font-weight: bold;
+            border-radius: 4px;
+            box-shadow: 0 4px 0 #00cccc;
+            transition: all 0.2s ease-in-out;
+        }
+
+        .btn-primary:hover {
+            background-color: #00cccc;
+            box-shadow: 0 2px 0 #009999;
+        }
+
+        a {
+            color: #00ffff;
+            text-decoration: none;
+            display: block;
+            text-align: center;
+            margin-top: 15px;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+    </style>
+{% endblock %}
+
+{% block body %}
+    <form method="post">
+        <h1>Réinitialisation du mot de passe</h1>
+
+        {{ form_start(requestForm) }}
+            {{ form_row(requestForm.email) }}
+
+            <button type="submit" class="btn btn-primary">
+                Envoyer le lien de réinitialisation
+            </button>
+        {{ form_end(requestForm) }}
+
+        <a href="{{ path('app_login') }}">Retour à la connexion</a>
+    </form>
+{% endblock %}

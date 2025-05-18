@@ -1,0 +1,150 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Accueil{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <style>
+        .hero {
+            min-height: calc(100vh - 80px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 2rem;
+            background: linear-gradient(135deg, #00ffff 0%, #0066ff 100%);
+        }
+
+        .hero-content {
+            max-width: 800px;
+            color: white;
+        }
+
+        .hero-title {
+            font-size: 3rem;
+            margin-bottom: 1.5rem;
+            font-weight: 700;
+        }
+
+        .hero-subtitle {
+            font-size: 1.5rem;
+            margin-bottom: 2rem;
+            opacity: 0.9;
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+        }
+
+        .btn-hero {
+            padding: 1rem 2rem;
+            border-radius: 8px;
+            font-weight: 500;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            font-size: 1.1rem;
+        }
+
+        .btn-primary {
+            background: white;
+            color: #0066ff;
+        }
+
+        .btn-secondary {
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+            backdrop-filter: blur(10px);
+        }
+
+        .btn-hero:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .content-section {
+            padding: 4rem 2rem;
+            background: white;
+        }
+
+        .content-container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .section-title {
+            color: #333;
+            font-size: 2rem;
+            margin-bottom: 2rem;
+            text-align: center;
+        }
+
+        .feature-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .feature-item {
+            margin-bottom: 2rem;
+            padding: 1.5rem;
+            background: #f8f9fa;
+            border-radius: 10px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+        }
+
+        .feature-title {
+            color: #0066ff;
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .feature-description {
+            color: #666;
+            line-height: 1.6;
+        }
+    </style>
+{% endblock %}
+
+{% block body %}
+    <div class="hero">
+        <div class="hero-content">
+            <h1 class="hero-title">Bienvenue sur Sunday</h1>
+            <p class="hero-subtitle">Votre plateforme de gestion de témoignages et de clients</p>
+
+            <div class="hero-buttons">
+                {% if app.user %}
+                    <a href="{{ path('app_profile') }}" class="btn-hero btn-primary">Mon Profil</a>
+                {% else %}
+                    <a href="{{ path('app_login') }}" class="btn-hero btn-primary">Connexion</a>
+                    <a href="{{ path('app_register') }}" class="btn-hero btn-secondary">Inscription</a>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+
+    <div class="content-section">
+        <div class="content-container">
+            <h2 class="section-title">Fonctionnalités</h2>
+            <ul class="feature-list">
+                <li class="feature-item">
+                    <h3 class="feature-title">Gestion des témoignages</h3>
+                    <p class="feature-description">Créez, modifiez et gérez les témoignages de vos clients. Organisez-les par catégorie et suivez leur statut.</p>
+                </li>
+                <li class="feature-item">
+                    <h3 class="feature-title">Gestion des clients</h3>
+                    <p class="feature-description">Maintenez une base de données complète de vos clients avec leurs informations de contact et leur historique.</p>
+                </li>
+                <li class="feature-item">
+                    <h3 class="feature-title">Interface d'administration</h3>
+                    <p class="feature-description">Un panneau d'administration intuitif pour gérer tous les aspects de votre plateforme.</p>
+                </li>
+                <li class="feature-item">
+                    <h3 class="feature-title">Sécurité avancée</h3>
+                    <p class="feature-description">Système d'authentification robuste avec gestion des rôles et des permissions.</p>
+                </li>
+            </ul>
+        </div>
+    </div>
+{% endblock %}
