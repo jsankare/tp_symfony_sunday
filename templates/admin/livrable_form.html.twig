@@ -1,0 +1,100 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ livrable.id ? 'Modifier' : 'Ajouter' }} un Livrable{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <style>
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        .header {
+            margin-bottom: 20px;
+        }
+        .form-group {
+            margin-bottom: 20px;
+        }
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+        .form-control {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+        .btn-group {
+            display: flex;
+            gap: 10px;
+            margin-top: 20px;
+        }
+        .btn {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            text-decoration: none;
+            display: inline-block;
+        }
+        .btn-primary {
+            background-color: #007bff;
+            color: white;
+        }
+        .btn-secondary {
+            background-color: #6c757d;
+            color: white;
+        }
+        .btn:hover {
+            opacity: 0.9;
+        }
+    </style>
+{% endblock %}
+
+{% block body %}
+    <div class="container">
+        <div class="header">
+            <h1>{{ livrable.id ? 'Modifier' : 'Ajouter' }} un Livrable</h1>
+        </div>
+
+        {{ form_start(form) }}
+            <div class="form-group">
+                {{ form_label(form.name) }}
+                {{ form_widget(form.name) }}
+                {{ form_errors(form.name) }}
+            </div>
+
+            <div class="form-group">
+                {{ form_label(form.goal) }}
+                {{ form_widget(form.goal) }}
+                {{ form_errors(form.goal) }}
+            </div>
+
+            <div class="form-group">
+                {{ form_label(form.startDate) }}
+                {{ form_widget(form.startDate) }}
+                {{ form_errors(form.startDate) }}
+            </div>
+
+            <div class="form-group">
+                {{ form_label(form.goalDate) }}
+                {{ form_widget(form.goalDate) }}
+                {{ form_errors(form.goalDate) }}
+            </div>
+
+            <div class="form-group">
+                {{ form_label(form.projet) }}
+                {{ form_widget(form.projet) }}
+                {{ form_errors(form.projet) }}
+            </div>
+
+            <div class="btn-group">
+                <button type="submit" class="btn btn-primary">{{ livrable.id ? 'Modifier' : 'Ajouter' }}</button>
+                <a href="{{ path('app_admin_livrables') }}" class="btn btn-secondary">Retour</a>
+            </div>
+        {{ form_end(form) }}
+    </div>
+{% endblock %}

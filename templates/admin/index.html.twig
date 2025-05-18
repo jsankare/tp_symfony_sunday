@@ -113,6 +113,20 @@
                 <p class="card-description">Gérez la base de données des clients.</p>
                 <a href="{{ path('app_admin_clients') }}" class="card-link">Gérer les clients</a>
             </div>
+
+            <div class="admin-card">
+                <h2 class="card-title">Projets</h2>
+                <div class="card-stats">{{ projetCount }}</div>
+                <p class="card-description">Gérez les projets.</p>
+                <a href="{{ path('app_admin_projets') }}" class="card-link">Gérer les projets</a>
+            </div>
+
+            <div class="admin-card">
+                <h2 class="card-title">Livrables</h2>
+                <div class="card-stats">{{ livrableCount }}</div>
+                <p class="card-description">Gérez les livrables.</p>
+                <a href="{{ path('app_admin_livrables') }}" class="card-link">Gérer les livrables</a>
+            </div>
         </div>
     </div>
 {% endblock %}

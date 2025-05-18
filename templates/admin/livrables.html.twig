@@ -1,0 +1,124 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Gestion des Livrables{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <style>
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+        .btn-primary {
+            background-color: #007bff;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 5px;
+            text-decoration: none;
+            border: none;
+            cursor: pointer;
+        }
+        .btn-primary:hover {
+            background-color: #0056b3;
+        }
+        .table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        .table th, .table td {
+            padding: 12px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+        .table th {
+            background-color: #f8f9fa;
+            font-weight: bold;
+        }
+        .table tr:hover {
+            background-color: #f5f5f5;
+        }
+        .btn-group {
+            display: flex;
+            gap: 10px;
+        }
+        .btn-edit {
+            background-color: #28a745;
+            color: white;
+            padding: 5px 10px;
+            border-radius: 3px;
+            text-decoration: none;
+        }
+        .btn-delete {
+            background-color: #dc3545;
+            color: white;
+            padding: 5px 10px;
+            border-radius: 3px;
+            text-decoration: none;
+        }
+        .alert {
+            padding: 15px;
+            margin-bottom: 20px;
+            border: 1px solid transparent;
+            border-radius: 4px;
+        }
+        .alert-success {
+            color: #155724;
+            background-color: #d4edda;
+            border-color: #c3e6cb;
+        }
+    </style>
+{% endblock %}
+
+{% block body %}
+    <div class="container">
+        <div class="header">
+            <h1>Gestion des Livrables</h1>
+            <a href="{{ path('app_admin_livrable_new') }}" class="btn-primary">Ajouter un livrable</a>
+        </div>
+
+        {% for message in app.flashes('success') %}
+            <div class="alert alert-success">
+                {{ message }}
+            </div>
+        {% endfor %}
+
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Nom</th>
+                    <th>Objectif</th>
+                    <th>Date de début</th>
+                    <th>Date d'objectif</th>
+                    <th>Projet associé</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for livrable in livrables %}
+                    <tr>
+                        <td>{{ livrable.name }}</td>
+                        <td>{{ livrable.goal }}</td>
+                        <td>{{ livrable.startDate|date('d/m/Y') }}</td>
+                        <td>{{ livrable.goalDate|date('d/m/Y') }}</td>
+                        <td>{{ livrable.projet.name }}</td>
+                        <td class="btn-group">
+                            <a href="{{ path('app_admin_livrable_edit', {id: livrable.id}) }}" class="btn-edit">Modifier</a>
+                            <form action="{{ path('app_admin_livrable_delete', {id: livrable.id}) }}" method="post" style="display: inline;">
+                                <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ livrable.id) }}">
+                                <button type="submit" class="btn-delete" onclick="return confirm('Êtes-vous sûr de vouloir supprimer ce livrable ?')">Supprimer</button>
+                            </form>
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+{% endblock %}
