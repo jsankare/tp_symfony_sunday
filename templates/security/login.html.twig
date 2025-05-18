@@ -1,0 +1,129 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Log in!{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@500&display=swap');
+
+        body {
+            background: linear-gradient(to bottom, #1c1c1c, #2b2b2b);
+            font-family: 'Orbitron', sans-serif;
+            color: #fff;
+            min-height: 100vh;
+        }
+
+        form {
+            max-width: 480px;
+            margin: 60px auto;
+            padding: 40px;
+            background: #1f1f1f;
+            border: 3px solid #3f3f3f;
+            box-shadow: 0 0 15px #000;
+            border-radius: 8px;
+        }
+
+        h1 {
+            text-align: center;
+            font-size: 22px;
+            margin-bottom: 30px;
+            color: #ff4081;
+            text-shadow: 0 0 5px #ff4081;
+        }
+
+        label {
+            display: block;
+            margin-top: 15px;
+            margin-bottom: 5px;
+            font-size: 12px;
+            color: #bbb;
+        }
+
+        input.form-control {
+            background-color: #2b2b2b;
+            color: #00ffff;
+            border: 2px solid #00ffff;
+            border-radius: 4px;
+            padding: 10px;
+            font-size: 14px;
+        }
+
+        .btn-primary {
+            background-color: #00ffff;
+            color: #000;
+            border: none;
+            padding: 12px;
+            width: 100%;
+            margin-top: 20px;
+            font-weight: bold;
+            border-radius: 4px;
+            box-shadow: 0 4px 0 #00cccc;
+            transition: all 0.2s ease-in-out;
+        }
+
+        .btn-primary:hover {
+            background-color: #00cccc;
+            box-shadow: 0 2px 0 #009999;
+        }
+
+        .checkbox label {
+            color: #aaa;
+            font-size: 11px;
+        }
+
+        .alert-danger {
+            background-color: #ff4d4d;
+            color: #fff;
+            padding: 10px;
+            font-size: 12px;
+            border-radius: 4px;
+            margin-bottom: 15px;
+        }
+
+        a {
+            color: #00ffff;
+            text-decoration: none;
+            display: block;
+            text-align: center;
+            margin-top: 15px;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+    </style>
+{% endblock %}
+
+{% block body %}
+<form method="post">
+    {% if error %}
+        <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+    {% endif %}
+
+    {% if app.user %}
+        <div class="mb-3">
+            You are logged in as {{ app.user.userIdentifier }}, <a href="{{ path('app_logout') }}">Logout</a>
+        </div>
+    {% endif %}
+
+    <h1 class="h3 mb-3 font-weight-normal">Please sign in</h1>
+    <label for="inputEmail">Email</label>
+    <input type="email" value="{{ last_username }}" name="email" id="inputEmail" class="form-control" autocomplete="email" required autofocus>
+    <label for="inputPassword">Password</label>
+    <input type="password" name="password" id="inputPassword" class="form-control" autocomplete="current-password" required>
+    <input type="hidden" name="_csrf_token" data-controller="csrf-protection" value="{{ csrf_token('authenticate') }}">
+
+    <div class="checkbox mb-3">
+        <label>
+            <input type="checkbox" name="_remember_me"> Remember me
+        </label>
+    </div>
+
+    <button class="btn btn-lg btn-primary" type="submit">
+        Sign in
+    </button>
+
+    <a href="{{ path('app_register') }}">Pas encore de compte ? Inscrivez-vous</a>
+</form>
+{% endblock %}
